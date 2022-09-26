@@ -13,6 +13,8 @@ func AddCryptoRoutes(r *gin.Engine) {
 			crypto.GET("/", controllers.ListCryptos)
 			crypto.GET("/:id", controllers.GetCrypto)
 			crypto.POST("/", controllers.CreateCrypto)
+			crypto.PATCH("/:id", controllers.UpdateCrypto)
+			crypto.DELETE("/:id", controllers.DeleteCrypto)
 		}
 	}
 }

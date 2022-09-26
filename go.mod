@@ -3,8 +3,8 @@ module github.com/caiomp87/crypto-votes-api
 go 1.18
 
 require (
-	github.com/caiomp87/crypto-votes-datastore v0.1.0
-	github.com/caiomp87/crypto-votes-entities v0.1.2
+	github.com/caiomp87/crypto-votes-datastore v0.1.1
+	github.com/caiomp87/crypto-votes-entities v0.1.3
 	github.com/gin-gonic/gin v1.8.1
 	github.com/lib/pq v1.10.7
 )

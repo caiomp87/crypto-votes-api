@@ -70,3 +70,69 @@ func CreateCrypto(ctx *gin.Context) {
 		"message": "crypto created successfully",
 	})
 }
+
+func UpdateCrypto(ctx *gin.Context) {
+	id := ctx.Param("id")
+	if id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": errors.New("id field is required"),
+		})
+		return
+	}
+
+	convertedID, err := strconv.Atoi(id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	var crypto *models.Crypto
+	if err := ctx.BindJSON(&crypto); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if err := datastore.CryptoDatastore.UpdateByID(convertedID, crypto); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "crypto updated successfully",
+	})
+}
+
+func DeleteCrypto(ctx *gin.Context) {
+	id := ctx.Param("id")
+	if id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": errors.New("id field is required"),
+		})
+		return
+	}
+
+	convertedID, err := strconv.Atoi(id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if err := datastore.CryptoDatastore.DeleteByID(convertedID); err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "crypto deleted successfully",
+	})
+}
